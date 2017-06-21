@@ -1,0 +1,21 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.vizuri.patient</groupId>
+	<artifactId>scheduler-demo-parent</artifactId>
+	<version>0.0.1</version>
+	<name>scheduler-demo-parent</name>
+	<packaging>pom</packaging>
+
+	<properties>
+		<drools-version>6.4.0.Final-redhat-6</drools-version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<modules>
+		<module>scheduler-engine</module>
+		<module>scheduler-webapp</module>
+	</modules>
+
+</project>

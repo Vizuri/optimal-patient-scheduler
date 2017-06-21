@@ -1,0 +1,38 @@
+<div data-ng-include="'client/app/assets/templates/web_templates.html'"></div>
+<div class="container custom_look">
+    <div init-header="config" header-label="Schedule Planner"></div>
+    <form name="configForm" class="body form-horizontal custom-form">
+        <div class="panel panel-default">
+            <div class="panel-heading">Schedule Planner</div>
+            <div class="panel-body">
+                <div layout="row">
+                    <label flex="40" class="control-label">Please configure/seed the planner before scheduling</label>
+
+                </div>
+                <div layout="row">
+                    <uib-tabset flex="100" active="inputTabs.active" >
+                        <uib-tab heading="Configuration" select="refreshSliders()">
+                            <div class="well">
+                                <div data-ng-include="'client/app/components/config_planner/view/config_planner_config_view.html'"></div>
+                            </div>
+                        </uib-tab>
+                        <!--<uib-tab heading="Summary">-->
+                            <!--<div class="well">-->
+                                <!--Need input-->
+                            <!--</div>-->
+                        <!--</uib-tab>-->
+                        <uib-tab heading="Schedule Generator" select="refreshSliders('schedule')">
+                            <div class="well">
+                                <div data-ng-include="'client/app/components/config_planner/view/config_planner_scheduler_view.html'"></div>
+
+                            </div>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+
+
+
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,103 @@
+<script type="text/ng-template" id="alertWindow.html">
+    <div class="modal-header">
+        <b>Patient</b>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;white-space: pre-wrap;">{{message}}</div>
+        </div>
+    </div>
+    <div class="modal-footer" style="text-align: center;padding: 10px;">
+        <button class="btn btn-primary btn-sm" ng-click="alertOk()">OK</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="eventPopoverTemplate.html">
+    <div class="modal-header">
+        <b>{{event.title}}</b>
+    </div>
+    <div class="modal-body">
+        <div layout="row">
+            <label flex="50" class="control-label">{{message}}</label>
+        </div>
+        <div layout="row">
+            <label flex="15" class="control-label">Patient</label>
+            <div flex="20" class="readonly_value">
+                <span>{{event.patientName}}</span>
+            </div>
+
+            <label flex="10" class="control-label">Start:</label>
+            <div flex="15" class="readonly_value">
+                <span>{{ startDate | date :  "h:mm a" }}</span>
+            </div>
+            <label flex="10" class="control-label">End:</label>
+            <div flex="15" class="readonly_value">
+                <span>{{ endDate | date :  "h:mm a" }}</span>
+            </div>
+
+        </div>
+        <div layout="row">
+
+            <label flex="15" class="control-label">Physician</label>
+            <div flex="20" ng-if="event.physicianName" class="readonly_value">
+                <span>{{event.physicianName}}</span>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="modal-footer" style="text-align: center;padding: 10px;">
+        <button class="btn btn-primary btn-sm" ng-click="popupClose()">Close</button>
+        <button type="button" ng-if="type === 'C'" ng-click="popupGoTo()"
+                class="btn btn-success btn-sm">View Patient Schedule</button>
+        <button type="button" ng-if="type === 'P'" ng-click="popupGoTo()"
+                class="btn btn-success btn-sm">View Physician Schedule</button>
+        <button type="button" ng-if="event.status === 'DRAFT'" ng-click="popupAccept()"
+                class="btn btn-success btn-sm">Accept Appointment</button>
+    </div>
+</script>
+<script type="text/ng-template" id="availableAppointmentsTemplate.html">
+    <div class="modal-header">
+        <b>Available Appointments for: {{patientName}}</b>
+    </div>
+    <div class="modal-body">
+        <div layout="row">
+            <label flex class="control-label">Select one of the following available appointments:</label>
+
+        </div>
+        <md-content class="md-padding">
+
+            <div class="well" >
+
+                <div layout="row">
+                    <div flex>
+
+                        <md-radio-group ng-model="selectedAppointment">
+
+                            <md-radio-button ng-repeat="appointment in appointments" value="{{appointment}}" class="md-primary">{{appointment.appointmentDate.dayOfWeek + ", "  + appointment.appointmentDate.month + " " + appointment.appointmentDate.dayOfMonth + " " + appointment.appointmentDate.year + " at: " + appointment.startTime.hour + ":" + appointment.startMinute}}</md-radio-button>
+
+                        </md-radio-group>
+
+                    </div>
+                    <div flex flex-offset="10" style="margin-top: 15px;" ng-show="loadingAvailableAppointments">
+                        <img src="client/app/assets/img/process_loading.gif" >
+                    </div>
+
+                </div>
+                <div layout="row" ng-if="errorMessages">
+                    <label flex class="control-label">{{errorMessages}}</label>
+
+                </div>
+
+            </div>
+
+        </md-content>
+
+
+    </div>
+    <div class="modal-footer" style="text-align: center;padding: 10px;">
+        <button class="btn btn-default btn-sm" ng-click="popupClose()">Cancel</button>
+        <button type="button" ng-click="popupAccept()"
+                class="btn btn-success btn-sm">Accept Appointment</button>
+    </div>
+</script>

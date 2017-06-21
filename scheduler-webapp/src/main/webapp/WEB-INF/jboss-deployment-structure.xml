@@ -1,0 +1,11 @@
+<jboss-deployment-structure>
+	<deployment>
+		<exclusions>
+			<!-- excluding default jackson codehause provider, using faster xml packaging 
+				part of war file -->
+			<module name="org.jboss.resteasy.resteasy-jackson-provider" />
+			<module name="org.jboss.resteasy.resteasy-jackson2-provider"/>
+		</exclusions>
+
+	</deployment>
+</jboss-deployment-structure> 

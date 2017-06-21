@@ -1,0 +1,75 @@
+<div class="header">
+    <div layout="row">
+        <div flex="10"></div>
+        <div flex="30">
+            <div class="logo">
+                <img src="client/app/assets/img/vizuri-logo.png" style="height: 65px;">
+            </div>
+        </div>
+        <div flex="35">
+            <div class="firstRow">{{headerLabel}}</div>
+        </div>
+        <!--<div flex="15">-->
+            <!--<select type="checkbox" class="form-control" style="margin-top: 5px;" ng-model="pageView" ng-change="goTo(pageView)">-->
+                <!--<option value="config">CONFIGURE PLANNER</option>-->
+                <!--<option value="clinic">CLINIC SCHEDULE</option>-->
+                <!--<option value="patient">PATIENT SCHEDULE</option>-->
+                <!--<option value="physician">PHYSICIAN SCHEDULE</option>-->
+                <!--<option value="swagger">SWAGGER</option>-->
+            <!--</select>-->
+        <!--</div>-->
+        <!--<div flex="5">-->
+
+            <!--<md-menu>-->
+                <!--<md-button aria-label="Open menu with custom trigger" class="md-icon-button" ng-mouseenter="$mdMenu.open()">-->
+                    <!--<i md-menu-origin class="glyphicon glyphicon-menu-hamburger"> </i>-->
+                <!--</md-button>-->
+                <!--&lt;!&ndash;ng-mouseleave="$mdMenu.close()"&ndash;&gt;-->
+                <!--<md-menu-content width="4" >-->
+                    <!--&lt;!&ndash;<md-menu-item><md-button ng-click="goTo('config')">Configuration Planner</md-button></md-menu-item>&ndash;&gt;-->
+                    <!--<md-menu-item ng-repeat="option in menuOptions" ng-click="goTo(option.page)">-->
+                        <!--<md-button>-->
+                            <!--{{option.name}}-->
+                        <!--</md-button>-->
+                    <!--</md-menu-item>-->
+                <!--</md-menu-content>-->
+            <!--</md-menu>-->
+
+        <!--</div>-->
+        <div flex>
+
+            <div class="btn-group" uib-dropdown>
+                <md-button class="md-icon-button" aria-label="show menu" ng-disabled="disabled">
+                    <i md-menu-origin class="glyphicon glyphicon-menu-hamburger"> </i>
+                </md-button>
+                <md-menu-content width="4" class="dropdown-menu" style="top: 50%;" uib-dropdown-menu>
+                    <md-menu-item ng-repeat="option in menuOptions" ng-click="goTo(option.page)">
+                        <md-button>
+                            {{option.name}}
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+
+                <!--<ul class="dropdown-menu" role="menu" uib-dropdown-menu >-->
+                    <!--<li role="menuitem" ng-repeat="option in menuOptions" ng-click="goTo(option.page)" >-->
+                        <!--<md-button>-->
+                            <!--{{option.name}}-->
+                        <!--</md-button>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            </div>
+
+        </div>
+        <div flex>
+            <md-button class="md-icon-button" aria-label="show settings" ng-disabled="disabled">
+                <i class="glyphicon glyphicon-cog" ng-click="showConfigurationSettings()"> </i>
+            </md-button>
+
+        </div>
+        <div flex="20" ></div>
+
+        <!--<div flex flex-offset="2" style="margin-top: 10px;">-->
+            <!--<i class="glyphicon glyphicon-cog" ng-click="showConfigurationSettings()"> </i>-->
+        <!--</div>-->
+    </div>
+</div>

@@ -1,0 +1,106 @@
+<div layout="row">
+
+    <div flex="15">
+        <label class="control-label">Max Appointments:</label>
+    </div>
+    <div flex="50">
+        <!--<input type="text" ng-model="plannerConfiguration.maxPatientAppointments" class="form-control"/>-->
+        <rzslider rz-slider-model="plannerConfiguration.maxPatientAppointments"
+                  rz-slider-options="maxPatientsSlider.options"></rzslider>
+
+    </div>
+    <div flex="5" flex-offset="2"> <div>(%)</div> </div>
+</div>
+<div layout="row" style="margin-top: 15px;">
+
+
+    <div  md-whiteframe="10" class="padded" flex="70" style="padding-bottom: 10px;padding-left: 10px;">
+
+        <div layout="row">
+            <div flex="80">
+                <div layout="row">
+
+                    <div flex="35">
+                        <label class="control-label">Running:</label>
+                    </div>
+                    <div flex="15" style="margin-top: 7px;"><span>{{polling.isPolling}}</span></div>
+                    <div flex="30">
+                        <label class="control-label">Polling Status:</label>
+                    </div>
+                    <div flex="20" style="margin-top: 7px;">{{polling.status}}</div>
+
+                </div>
+                <div layout="row">
+
+                    <div flex="35">
+                        <label class="control-label">Solution Attempt:</label>
+                    </div>
+                    <div flex="15" style="margin-top: 7px;"><span>{{polling.attempts}}</span></div>
+                    <div flex="30">
+                        <label class="control-label">Solution Score:</label>
+                    </div>
+                    <div flex="20" style="margin-top: 7px;"><span>{{polling.score}}</span></div>
+                </div>
+                <div layout="row">
+
+                    <div flex="35">
+                        <label class="control-label">Number of Treatments:</label>
+                    </div>
+                    <div flex="15" style="margin-top: 7px;"><span>{{polling.treatmentCount}}</span></div>
+                    <div flex="30">
+                        <label class="control-label">Draft Appointments:</label>
+                    </div>
+                    <div flex="20" style="margin-top: 7px;"><span>{{polling.draftConsultCount}}</span></div>
+                </div>
+                <div layout="row">
+
+                    <div flex="35">
+                        <label class="control-label">Accepted Appointments:</label>
+                    </div>
+                    <div flex="15" style="margin-top: 7px;"><span>{{polling.acceptedConsultCount}}</span></div>
+                    <div flex="30">
+                        <label class="control-label">Message:</label>
+                    </div>
+                    <div flex="20" style="margin-top: 7px;"><span>{{polling.message}}</span></div>
+                </div>
+            </div>
+            <div flex flex-offset="10" style="margin-top: 15px;" ng-show="polling.isPolling">
+                <img src="client/app/assets/img/process_loading.gif" >
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+<hr>
+<div layout="row">
+    <div flex="20">
+        <button type="button" ng-disabled="!haveInputData" ng-click="calculateSchedule()"
+
+                class="btn btn-success btn-sm">Calculate Sample Schedule</button>
+    </div>
+    <div flex="20">
+        <!--ng-disabled="!polling.isPolling"-->
+        <button type="button"  ng-click="stopPolling()"
+                class="btn btn-primary btn-sm">Stop Polling for next best Solution</button>
+    </div>
+    <div flex="20">
+        <!--tooltip-placement="top" uib-tooltip="Will calculate a sample schedule based on the given configuration"-->
+        <button type="button" ng-disabled="polling.isPolling" ng-click="acceptAllAppointment()"
+
+                class="btn btn-success btn-sm">Accept Appointments</button>
+    </div>
+
+    <div flex="15">
+        <button type="button"  ng-click="goToPage('C')"
+                class="btn btn-success btn-sm">View Clinics</button>
+    </div>
+    <div flex="15">
+        <button type="button" ng-disabled="!plannerSeeded" ng-click="goToPage('D')"
+                class="btn btn-success btn-sm">View Physicians</button>
+    </div>
+    <!--<div flex="15">-->
+        <!--<button class="btn btn-primary btn-sm" ng-click="resetConfiguration()">Reset Configuration</button>-->
+    <!--</div>-->
+</div>

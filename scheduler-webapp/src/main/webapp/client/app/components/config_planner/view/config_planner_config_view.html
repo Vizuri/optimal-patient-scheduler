@@ -1,0 +1,94 @@
+<div layout="row">
+
+    <div flex="15">
+        <label class="control-label">Max Clinics:</label>
+    </div>
+    <div flex="5">
+        <input id="maxClinics" name="maxClinics" type="text" ng-model="plannerConfiguration.maxClinics" class="form-control"/>
+    </div>
+    <div flex="15" flex-offset="5">
+        <label class="control-label">Max Physicians:</label>
+    </div>
+    <div flex="5">
+        <input id="maxPhysicians" name="maxPhysicians" type="text" ng-model="plannerConfiguration.maxPhysicians" class="form-control"/>
+    </div>
+    <div flex="15" flex-offset="5">
+        <label class="control-label">Max Rooms/Clinic:</label>
+    </div>
+    <div flex="5">
+        <input id="maxRooms" name="maxRooms" type="text" ng-model="plannerConfiguration.maxRooms" class="form-control"/>
+    </div>
+</div>
+<div layout="row">
+
+    <div flex="15">
+        <label class="control-label">Max Patients/Clinic:</label>
+    </div>
+    <div flex="50">
+        <!--<input type="text" ng-model="plannerConfiguration.maxPatientsPerClinic" class="form-control"/>-->
+        <rzslider rz-slider-model="plannerConfiguration.maxPatientsPerClinic"
+                  rz-slider-options="maxPatientsSlider.options"></rzslider>
+    </div>
+
+</div>
+<!--<div layout="row">-->
+
+    <!--<div flex="15">-->
+        <!--<label class="control-label">Max Appointments:</label>-->
+    <!--</div>-->
+    <!--<div flex="50">-->
+        <!--&lt;!&ndash;<input type="text" ng-model="plannerConfiguration.maxPatientAppointments" class="form-control"/>&ndash;&gt;-->
+        <!--<rzslider rz-slider-model="plannerConfiguration.maxPatientAppointments"-->
+                  <!--rz-slider-options="slider.options"></rzslider>-->
+    <!--</div>-->
+    <!--<div flex="5" flex-offset="2"> <div>(%)</div> </div>-->
+<!--</div>-->
+<div layout="row">
+
+    <div flex="15">
+        <label class="control-label">Scheduling Window:</label>
+    </div>
+    <div flex="50">
+        <!--<input type="text" ng-model="plannerConfiguration.maxDuration" class="form-control"/>-->
+        <rzslider rz-slider-model="plannerConfiguration.scheduleWindow"
+                  rz-slider-options="scheduleWindowSlider.options"></rzslider>
+    </div>
+    <div flex="5" flex-offset="2"> <div>(Weeks)</div> </div>
+
+</div>
+<hr>
+<div layout="row">
+    <div flex="15">
+        <button type="button" ng-disabled="!haveInputData" ng-click="seedPlanner()"
+                tooltip-placement="top" uib-tooltip="Will submit the new configuration to the planner"
+                class="btn btn-success btn-sm">Seed Planner</button>
+    </div>
+    <div flex="15">
+        <button type="button"  ng-click="goToPage('C')"
+                class="btn btn-success btn-sm">View Clinics</button>
+    </div>
+    <div flex="15">
+        <button type="button" ng-disabled="!plannerSeeded" ng-click="goToPage('D')"
+                class="btn btn-success btn-sm">View Physicians</button>
+    </div>
+    <div flex="15">
+        <button class="btn btn-primary btn-sm" ng-click="resetConfiguration()">Reset Inputs to Default</button>
+    </div>
+</div>
+
+<!--<div layout="row">-->
+
+<!--<label flex="20">Selected Patient:</label>-->
+
+<!--<div flex="20">-->
+
+<!--<select name="selPatient" type="checkbox" class="form-control"-->
+<!--ng-model="selPatient"-->
+<!--ng-options="patient as patient.firstName for patient in patientList | orderBy :'firstName'"-->
+<!--ng-change="setSelectedPatient(selPatient)"-->
+<!--ng-required="true">-->
+<!--<option value="">Select One</option>-->
+<!--</select>-->
+
+<!--</div>-->
+<!--</div>-->

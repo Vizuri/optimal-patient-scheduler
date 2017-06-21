@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="vizuri-schedule-planner">
+
+<head>
+    <title>Schedule Planner</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="client/app/assets/img/favicon.ico" type="image/x-icon"/>
+    
+    <link rel="stylesheet" href="client/bower_components/bootstrap/dist/css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="client/bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" href="client/app/assets/css/common.css" type="text/css">
+    <link rel="stylesheet" href="client/app/assets/css/custom_look.css" type="text/css">
+    <link rel="stylesheet" href="client/bower_components/ng-prettyjson/dist/ng-prettyjson.min.css" type="text/css">
+    <link rel="stylesheet" href="client/bower_components/components-font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="client/bower_components/fullcalendar/dist/fullcalendar.css"/>
+    <link rel='stylesheet' href="client/bower_components/fullcalendar-scheduler/dist/scheduler.css"/>
+    <link rel="stylesheet" href="client/bower_components/angularjs-slider/dist/rzslider.css" type="text/css" />
+</head>
+
+<body>
+    <div id="content" ng-view ng-class="{wait_cursor: showMouseHourGlass}"></div>
+    
+   
+    <!--  loading all the angular api components -->
+    <script src="client/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="client/bower_components/moment/min/moment.min.js"></script>
+    <script src="client/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Load angularjs -->
+    <script src="client/bower_components/angular/angular.js"></script>
+    <!-- Load angularjs-route, which allows us to use multiple views displayed through application routes -->
+    <script src="client/bower_components/angular-route/angular-route.js"></script>
+    <!-- Load angularjs-resource, which allows us to interact with REST resources as high level services -->
+    <script src="client/bower_components/angular-resource/angular-resource.js"></script>
+    <script src="client/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <!-- angular-material for layout -->
+    <script src="client/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="client/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="client/bower_components/angular-material/angular-material.js"></script>
+    <script type="text/javascript" src="client/bower_components/angular-ui-mask/dist/mask.js"></script>
+    <script src="client/bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+    <script src="client/bower_components/angular-x2js/dist/x2js.min.js"></script>
+    <script src="client/bower_components/x2js/xml2json.min.js"></script>
+    <script type="text/javascript" src="client/bower_components/ng-prettyjson/dist/ng-prettyjson.min.js"></script>
+    <script src="client/bower_components/cryptojslib/rollups/sha3.js"></script>
+    
+    <!-- jquery, moment, and angular have to get included before fullcalendar -->
+    <script type="text/javascript" src="client/bower_components/angular-ui-calendar/src/calendar.js"></script>
+	<script type="text/javascript" src="client/bower_components/fullcalendar/dist/fullcalendar.js"></script>
+	<script type="text/javascript" src="client/bower_components/fullcalendar-scheduler/dist/scheduler.js"></script>
+	<script type="text/javascript" src="client/bower_components/fullcalendar/dist/gcal.js"></script>
+	<script src="client/bower_components/angularjs-slider/dist/rzslider.min.js"></script>
+	<script src="client/bower_components/angular-poller/angular-poller.js"></script>
+
+    <script src="client/app/app-routes.js"></script>
+    <script src="client/app/common/util.js"></script>
+    <!-- Common Controllers, Services and Directives -->
+    <script src="client/app/common/service/common_services.js"></script>
+    <script src="client/app/common/directive/common_directives.js"></script>
+    <script src="client/app/components/header/directive/header_directive.js"></script>
+    <!-- Load the controllers for our app -->
+    
+    <!--  CONFIG PLANNER UI -->
+    <script src="client/app/components/config_planner/controller/config_planner_controller.js"></script>
+    <script src="client/app/components/config_planner/service/config_planner_service.js"></script>
+    <!--  CLINIC DETAILS UI -->
+    <script src="client/app/components/clinic_detail/controller/clinic_detail_controller.js"></script>
+    <script src="client/app/components/clinic_detail/service/clinic_detail_service.js"></script>
+    <!--  PHYSICIAN DETAIL UI -->
+    <script src="client/app/components/physician_detail/controller/physician_detail_controller.js"></script>
+    <script src="client/app/components/physician_detail/service/physician_detail_service.js"></script>
+    <!--  PATIENT DETAIL UI -->
+    <script src="client/app/components/patient_detail/controller/patient_detail_controller.js"></script>
+    <script src="client/app/components/patient_detail/service/patient_detail_service.js"></script>
+    <!--  Swagger UI -->
+    <script src="client/app/components/swagger/controller/swagger_controller.js"></script>
+    <script src="client/app/components/swagger/service/swagger_service.js"></script>
+    <script src="client/app/components/swagger/directive/swagger_directive.js"></script>
+    
+</body>
+
+</html>

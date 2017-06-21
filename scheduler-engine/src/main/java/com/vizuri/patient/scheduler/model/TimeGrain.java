@@ -1,0 +1,68 @@
+package com.vizuri.patient.scheduler.model;
+
+public class TimeGrain extends AbstractPersistable {
+	private static final long serialVersionUID = 763131382349071368L;
+
+	/**
+	 * Time granularity is 15 minutes (which is often recommended when dealing
+	 * with humans for practical purposes).
+	 */
+	public static final int GRAIN_LENGTH_IN_MINUTES = 15;
+
+	private int grainIndex; // Unique, and ascending used to quickly calculate
+							// overlaps
+	private Day day;
+	private int startingMinuteOfDay;
+
+	public TimeGrain() {
+		super();
+	}
+
+	public TimeGrain(Long id, int grainIndex, Day day, int startingMinuteOfDay) {
+		super(id);
+		this.grainIndex = grainIndex;
+		this.day = day;
+		this.startingMinuteOfDay = startingMinuteOfDay;
+	}
+
+	public int getGrainIndex() {
+		return grainIndex;
+	}
+
+	public void setGrainIndex(int grainIndex) {
+		this.grainIndex = grainIndex;
+	}
+
+	public Day getDay() {
+		return day;
+	}
+
+	public void setDay(Day day) {
+		this.day = day;
+	}
+
+	public int getStartingMinuteOfDay() {
+		return startingMinuteOfDay;
+	}
+
+	public void setStartingMinuteOfDay(int startingMinuteOfDay) {
+		this.startingMinuteOfDay = startingMinuteOfDay;
+	}
+
+	public String getTimeString() {
+		int hourOfDay = startingMinuteOfDay / 60;
+		int minuteOfHour = startingMinuteOfDay % 60;
+		return (hourOfDay < 10 ? "0" : "") + hourOfDay + ":" + (minuteOfHour < 10 ? "0" : "") + minuteOfHour;
+	}
+
+	public String getDateTimeString() {
+		return day.getDateString() + " " + getTimeString();
+	}
+
+	@Override
+	public String toString() {
+		return "TimeGrain [grainIndex=" + grainIndex + ", day=" + day + ", startingMinuteOfDay=" + startingMinuteOfDay
+				+ ", id=" + id + "]";
+	}
+
+}

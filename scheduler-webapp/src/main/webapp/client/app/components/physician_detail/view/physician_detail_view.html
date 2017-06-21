@@ -1,0 +1,89 @@
+<div data-ng-include="'client/app/assets/templates/web_templates.html'"></div>
+<div class="container custom_look">
+    <div init-header="physician" header-label="Physician Schedule"></div>
+    <form name="mainForm" class="body form-horizontal custom-form">
+        <div class="panel panel-default">
+            <div class="panel-heading">Physician</div>
+            <div class="panel-body">
+
+                <div layout="row">
+                    <label flex class="control-label">Select a Physician to view:</label>
+                    <div flex="30">
+                        <select name="clinics" id="clinics" ng-model="selectedPhysician.name"
+                                ng-options="p.name as p.name for p in physicians" data-ng-change="selectPhysician()" class="form-control">
+                            <option value="">Select one</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div layout="row" ng-show="selectedPhysician.obj">
+
+                    <md-content flex="100">
+                        <md-tabs md-selected="physicianTabs.active" md-dynamic-height md-border-bottom>
+                            <md-tab label="Details">
+                                <md-content class="md-padding">
+                                    <div layout="row">
+
+                                        <div flex="15">
+                                            <label class="control-label">Physician Name:</label>
+                                        </div>
+                                        <div flex="10" class="readonly_value">
+                                            {{selectedPhysician.obj.name}}
+                                        </div>
+
+                                    </div>
+                                    <!--<div layout="row">-->
+                                        <!--<label flex class="control-label">Select one of the following available appointments:</label>-->
+                                        <!--<div flex="50">-->
+
+
+                                        <!--</div>-->
+
+                                    <!--</div>-->
+                                    <div layout="row">
+                                        <div flex="30">
+                                            <button type="button" ng-click="getPhysicianAppointments()"
+                                                    class="btn btn-success btn-sm">Retrieve Appointments</button>
+                                        </div>
+
+                                    </div>
+
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="Schedule" ng-click="refreshCalendar()">
+                                <md-content class="md-padding">
+                                    <div class="calendar" id="calendar" calendar="physicianSchedule" ui-calendar="uiConfig.calendar" ng-model="eventSources"></div>
+                                </md-content>
+                            </md-tab>
+
+                        </md-tabs>
+                    </md-content>
+                    <!--<uib-tabset active="physicianTabs.active" flex="100">-->
+                        <!--<uib-tab heading="Details">-->
+                            <!--<div class="well">-->
+
+                                <!--<div layout="row">-->
+
+                                    <!--<div flex="20">-->
+                                        <!--<label class="control-label">Physician Name:</label>-->
+                                    <!--</div>-->
+                                    <!--<div flex="20">-->
+                                        <!--{{selectedPhysician.obj.name}}-->
+                                    <!--</div>-->
+
+                                <!--</div>-->
+
+                            <!--</div>-->
+                        <!--</uib-tab>-->
+                        <!--<uib-tab heading="Schedule" select="refreshCalendar()">-->
+                            <!--<div class="well">-->
+                                <!--<div class="calendar" id="calendar" calendar="physicianSchedule" ui-calendar="uiConfig.calendar" ng-model="eventSources"></div>-->
+                            <!--</div>-->
+                        <!--</uib-tab>-->
+                    <!--</uib-tabset>-->
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

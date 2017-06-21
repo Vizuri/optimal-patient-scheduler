@@ -1,0 +1,183 @@
+.custom_look .header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+    width: 100%;
+}
+
+.custom_look .body {
+    margin-top: 82px;
+    background-color: #ffffff;
+}
+
+.custom_look .control-label {
+    color: #435159;
+    font-weight: bolder;
+    text-align: left;
+}
+
+.custom_look .form-control {
+    height: 30px;
+    margin-bottom: 2px;
+}
+
+.custom_look .rating-level .form-control,
+.custom_look .lab_input .form-control {
+    height: 20px;
+    margin-bottom: 0px;
+}
+
+.custom_look .input-group .form-control {
+    margin: 0px;
+}
+
+.custom_look .btn-xs {
+    /* top, right */
+    padding: 2px 5px;
+    line-height: 20px;
+    background-color: #f5f5f5;
+    background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+    background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+    background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+    background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+    background-repeat: repeat-x;
+    border: 1px solid #bbbbbb;
+    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border-bottom-color: #a2a2a2;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.custom_look div[class="form-group"] {
+    margin-bottom: 5px;
+}
+
+.custom_look .custom-form .panel-heading {
+    background-color: #f5f5f5;
+}
+
+.custom_look .custom-form .panel .group-heading-medium {
+    margin-left: 10px;
+    border-bottom: none;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+.custom_look .custom-form .group-heading {
+    font-size: 18px;
+    color: #435159;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    border-bottom: 2px solid #cb2026;
+}
+
+.custom_look .custom-form .group-heading {
+    font-size: 18px;
+    color: #435159;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    border-bottom: 2px solid #cb2026;
+}
+
+.custom_look .custom-form .group-body {
+    padding: 15px;
+}
+
+.custom_look .custom-form .panel-body {
+    background-color: #f5f5f5;
+}
+
+.custom_look .firstRow {
+    height: 60px;
+}
+
+.custom_look .required {
+    color: red;
+}
+
+.custom_look .tab-heading .nav-tabs {
+    background-color: #f5f5f5;
+    border-radius: 4px 4px 0 0;
+}
+
+/*.custom_look table {
+
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}*/
+
+.custom_look thead {
+    color: #fff;
+    background-color: #005595;
+}
+
+/* This is to auto hide the popup menu in the header view */
+.custom_look .header .btn-group:hover>.dropdown-menu {
+    display: block;
+}
+
+.table-curved {
+    border-collapse: separate;
+    border: solid #ddd 1px;
+    border-radius: 6px;
+    border-left: 0px;
+    border-top: 0px;
+}
+
+.table-curved > thead:first-child > tr:first-child > th {
+    border-bottom: 0px;
+    border-top: solid #ddd 1px;
+}
+
+.table-curved td, .table-curved th {
+    border-left: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+
+/*.table-curved > :first-child > :first-child > :first-child {*/
+.table-curved th:first-child {
+
+    border-top-left-radius: 6px;
+}
+
+/*.table-curved > :first-child > :first-child > :last-child {*/
+.table-curved th:last-child {
+    border-top-right-radius: 6px;
+}
+
+.table-curved > :last-child > :last-child > :first-child {
+/*.table-curved tr:last-child td:first-child{*/
+    border-bottom-left-radius: 6px;
+}
+
+/*.table-curved > :last-child > :last-child > :last-child {*/
+.table-curved tr:last-child td:last-child {
+    border-bottom-right-radius: 6px;
+}
+
+/* added a custom flex offset */
+.offset-2, .flex-offset-2 {
+    margin-left: 2%; }
+[dir=rtl] .offset-2, [dir=rtl] .flex-offset-2 {
+    margin-left: auto;
+    margin-right: 2%; }
+
+
+.fc th {
+    overflow-x: hidden;
+}
+
+.custom_look .readonly_value {
+    padding-top: 5px;
+
+}

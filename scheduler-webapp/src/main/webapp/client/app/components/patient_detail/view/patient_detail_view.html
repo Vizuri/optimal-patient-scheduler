@@ -1,0 +1,165 @@
+
+<div data-ng-include="'client/app/assets/templates/web_templates.html'"></div>
+<div class="container custom_look">
+    <div init-header="patient" header-label="Patient Schedule"></div>
+    <form name="mainForm" class="body form-horizontal custom-form">
+        <div class="panel panel-default">
+            <div class="panel-heading">Patient at Clinic: {{clinicName}}</div>
+            <div class="panel-body">
+
+                <div layout="row">
+                    <label flex class="control-label">Select a Patient to view:</label>
+                    <div flex="30">
+                        <select name="clinics" id="clinics" ng-model="selectedPatient.name"
+                                ng-options="p.name as p.name for p in patients" data-ng-change="selectPatient()" class="form-control">
+                            <option value="">Select one</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div layout="row" ng-show="selectedPatient.obj">
+
+                    <md-content flex="100">
+                        <md-tabs md-selected="patientTabs.active" md-dynamic-height md-border-bottom>
+                            <md-tab label="Details">
+                                <md-content class="md-padding">
+                                    <div layout="row">
+
+                                        <div flex="10">
+                                            <label class="control-label">Patient Name:</label>
+                                        </div>
+                                        <div flex="10" class="readonly_value">
+                                            {{selectedPatient.obj.name}}
+                                        </div>
+                                        <div flex="10">
+                                            <label class="control-label">Schedule:</label>
+                                        </div>
+                                        <div flex="10" class="readonly_value">
+                                            {{selectedPatient.obj.treatmentDays}}
+                                        </div>
+
+                                    </div>
+                                    <!--<div layout="row">-->
+
+                                        <!--<label flex="15" class="control-label">Physician</label>-->
+                                        <!--<div flex="20" ng-if="selectedPatient.obj" class="readonly_value">-->
+                                            <!--<span>{{selectedPatient.obj.physicianName}}</span>-->
+                                        <!--</div>-->
+
+                                    <!--</div>-->
+                                    <hr>
+                                    <div layout="row">
+                                        <div flex="25">
+                                            <button type="button" ng-click="selectAppointmentPopup()" value="buttonText"
+                                                    class="btn btn-success btn-sm">Show available Appointment</button>
+                                        </div>
+                                        <div flex="20">
+                                            <button type="button" ng-click="viewClinic()"
+                                                    class="btn btn-success btn-sm">View Clinic</button>
+                                        </div>
+                                        <!--<div flex="15">-->
+                                        <!--<button type="button" ng-disabled="!haveInputData" ng-click="getPatient()"-->
+                                        <!--tooltip-placement="top" uib-tooltip="Will lookup a given patient"-->
+                                        <!--class="btn btn-success btn-sm">Lookup Patient</button>-->
+                                        <!--</div>-->
+                                    </div>
+
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="Schedule" ng-click="refreshCalendar()">
+                                <md-content class="md-padding">
+                                    <div class="calendar" id="calendar" calendar="patientSchedule" ui-calendar="uiConfig.calendar" ng-model="eventSources"></div>
+                                </md-content>
+                            </md-tab>
+
+                        </md-tabs>
+                    </md-content>
+
+                </div>
+                <!--<div layout="row" ng-show="selectedPatient.obj">-->
+
+
+                    <!--<uib-tabset active="patientTabs.active" flex="100">-->
+                        <!--<uib-tab heading="Details">-->
+                            <!--<div class="well">-->
+
+                                <!--<div layout="row">-->
+
+                                    <!--<div flex="20">-->
+                                        <!--<label class="control-label">Patient Name:</label>-->
+                                    <!--</div>-->
+                                    <!--<div flex="20">-->
+                                        <!--{{selectedPatient.obj.name}}-->
+                                    <!--</div>-->
+
+                                <!--</div>-->
+                                <!--<hr>-->
+                                <!--<div layout="row">-->
+                                    <!--<div flex="15">-->
+                                        <!--<button type="button" ng-click="showPatientAvailableAppointments()" value="buttonText"-->
+                                                <!--class="btn btn-success btn-sm">{{buttonText}} available Appointment</button>-->
+                                    <!--</div>-->
+                                    <!--&lt;!&ndash;<div flex="15">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<button type="button" ng-disabled="!haveInputData" ng-click="getPatient()"&ndash;&gt;-->
+                                                <!--&lt;!&ndash;tooltip-placement="top" uib-tooltip="Will lookup a given patient"&ndash;&gt;-->
+                                                <!--&lt;!&ndash;class="btn btn-success btn-sm">Lookup Patient</button>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--</div>-->
+                                <!--<div class="well" uib-collapse="!showAvailableAppointments">-->
+
+                                    <!--<div layout="row">-->
+                                        <!--<label flex class="control-label">Select one of the following available appointments:</label>-->
+                                        <!--<div flex="50">-->
+
+                                            <!--&lt;!&ndash;<ul>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<li type="none">&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div>&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<input type="radio" class="exclude_change_log" ng-model="sourceIdObj.selStyle" value="None">None&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<li ng-repeat="appointment in appointments" type="none">&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div>&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<input type="radio" class="radio"&ndash;&gt;-->
+                                                               <!--&lt;!&ndash;ng-model="selectedAppointment.id" ng-value="appointment.id" >{{appointment.appointmentDate.dayOfMonth + " " + appointment.appointmentDate.month + " " + appointment.appointmentDate.year}}&ndash;&gt;-->
+
+                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+
+                                            <!--<md-radio-group ng-model="selectedAppointment.id">-->
+
+                                                <!--<md-radio-button ng-repeat="appointment in appointments" value="{{appointment.id}}" class="md-primary">{{appointment.appointmentDate.dayOfWeek + ", "  + appointment.appointmentDate.month + " " + appointment.appointmentDate.dayOfMonth + " " + appointment.appointmentDate.year + " at: " + appointment.startTime.hour + ":" + appointment.startMinute}}</md-radio-button>-->
+
+                                            <!--</md-radio-group>-->
+
+
+                                            <!--&lt;!&ndash;<label class="radio-inline no_indent" >&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<input type="radio" class="radio"&ndash;&gt;-->
+                                                       <!--&lt;!&ndash;ng-model="selectedAppointment.id" ng-value="appointment.id" >{{appointment.appointmentDate.dayOfMonth + " " + appointment.appointmentDate.month + " " + appointment.appointmentDate.year}}&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</label>&ndash;&gt;-->
+                                        <!--</div>-->
+
+                                    <!--</div>-->
+                                    <!--<div layout="row">-->
+                                        <!--<div flex="30">-->
+                                            <!--<button type="button" ng-click="schedulePatientAppointment()"-->
+                                                    <!--class="btn btn-success btn-sm">Schedule Appointment</button>-->
+                                        <!--</div>-->
+
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                            <!--</div>-->
+                        <!--</uib-tab>-->
+                        <!--<uib-tab heading="Schedule" select="refreshCalendar()">-->
+                            <!--<div class="well">-->
+                                <!--&lt;!&ndash;<div class="calendar" id="calendar" calendar="patientSchedule" ui-calendar="uiConfig.calendar" ng-model="eventSources"></div>&ndash;&gt;-->
+                            <!--</div>-->
+                        <!--</uib-tab>-->
+                    <!--</uib-tabset>-->
+
+                <!--</div>-->
+            </div>
+        </div>
+    </form>
+</div>

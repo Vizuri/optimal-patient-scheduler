@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solver>
+	<!-- <environmentMode>FULL_ASSERT</environmentMode> --> <!-- Debug, adds around 30seconds overhead -->
+	<environmentMode>REPRODUCIBLE</environmentMode>  <!-- Default -->
+	<!-- <environmentMode>PRODUCTION</environmentMode> -->
+	<solutionClass>com.vizuri.patient.scheduler.solver.AppointmentSolution</solutionClass>
+	<entityClass>com.vizuri.patient.scheduler.solver.ConsultationEncounter</entityClass>
+
+	<scoreDirectorFactory>
+		<scoreDefinitionType>HARD_MEDIUM_SOFT</scoreDefinitionType>
+		<scoreDrl>com/vizuri/patient/scheduler/consultationScoreRules.drl</scoreDrl>
+		<!-- <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend> -->
+	</scoreDirectorFactory>
+
+	<termination>
+		<terminationCompositionStyle>OR</terminationCompositionStyle>
+		<minutesSpentLimit>5</minutesSpentLimit>
+		<bestScoreLimit>0hard/0medium/-500soft</bestScoreLimit>
+	</termination>
+	<constructionHeuristic>
+		<constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+	</constructionHeuristic>
+	<localSearch>
+		<acceptor>
+			<lateAcceptanceSize>400</lateAcceptanceSize>
+			<!-- <entityTabuSize>5</entityTabuSize> -->
+			<entityTabuRatio>0.08</entityTabuRatio>
+		</acceptor>
+		<forager>
+			<acceptedCountLimit>3</acceptedCountLimit>
+		</forager>
+	</localSearch>
+</solver>

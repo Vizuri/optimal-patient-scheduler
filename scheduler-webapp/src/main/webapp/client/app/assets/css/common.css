@@ -1,0 +1,244 @@
+@charset "UTF-8";
+
+/* CSS Document */
+
+.wait_cursor,
+.wait_cursor * {
+    cursor: wait !important;
+}
+
+.firstRow {
+    height: 80px;
+    /*background-color:#888b94; */
+    background-size: contain;
+    max-width: none!important;
+    max-height: none!important;
+    font-size: 22px;
+    color: #888b94;
+    text-align: left;
+    padding-top: 23px;
+    padding-right: 5px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+}
+
+.logo {
+    height: 60px;
+    margin-top: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    min-height: 90px;
+}
+
+.header {
+    height: 85px;
+    background-color: white;
+    background-size: contain;
+    max-width: none!important;
+    max-height: none!important;
+    margin-bottom: 40px;
+    border-bottom: 2px solid #c6c6c6;
+}
+
+input:focus {
+    background-color: #f9fabd;
+}
+
+input:active {
+    background-color: #fff;
+}
+
+div.form-group>label.control-label {
+    /*font-family: 'Roboto Slab', serif;*/
+    font-size: 13px!important;
+    color: #686b73;
+    font-weight: 300!important;
+}
+
+
+/*body{
+background-color:#f2f2f2;
+}*/
+
+.custom-form .panel-heading {
+    background-color: #f2f2f2;
+    color: #435159;
+    text-transform: uppercase;
+}
+
+.panel {
+    -webkit-box-shadow: none;
+    margin-bottom: 2px;
+}
+
+.panel-heading {
+    font-size: 18px!important;
+    padding: 10px 15px;
+    border-bottom: 2px solid #005595!important;
+    letter-spacing: 2px;
+    border-top: none!important;
+    border-left: none!important;
+    border-right: none!important;
+}
+
+.panel-body {
+    background-color: #f2f2f2;
+}
+
+.panel-default {
+    border: none!important;
+}
+
+.rating_diffs .row {
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+.rating_diffs .row.danger {
+    background-color: #ebcccc;
+}
+
+.rating_diffs .col-md-1 {
+    width: 5%;
+    padding-right: 1px;
+    padding-left: 1px;
+    text-align: center;
+}
+
+.rating_diffs .col-md-2 {
+    width: 15%;
+}
+
+.rating_diffs .col-md-3 {
+    width: 27%;
+}
+
+.rating_diffs .risk_removed {
+    /*background-color: gray;*/
+    opacity: 0.4;
+}
+
+.rating_diffs .risk_added {
+    /*background-color: yellow;*/
+}
+
+.rating_diffs .risk_edited {
+    opacity: 0.5;
+}
+
+td.column-risk-red,
+div.column-risk-red {
+    text-align: center;
+    background-color: red;
+}
+
+td.column-risk-orange,
+div.column-risk-orange {
+    text-align: center;
+    background-color: orange;
+}
+
+td.column-risk-green,
+div.column-risk-green {
+    text-align: center;
+    background-color: #21cd21;
+}
+
+td.column-risk-yellow,
+div.column-risk-yellow {
+    text-align: center;
+    background-color: #ffff00;
+}
+
+td.rating-level {
+    width: 5%;
+    font-weight: bold;
+    border-right: 1px solid #ddd;
+}
+
+
+/* swagger io */
+
+.swagger pre {
+    background-color: ghostwhite;
+    border: 1px solid silver;
+    padding: 10px 20px;
+    margin: 20px;
+}
+
+.swagger .json-key {
+    color: brown;
+}
+
+.swagger .json-value {
+    color: navy;
+}
+
+.swagger .json-string {
+    color: olive;
+}
+
+
+/* Chrome, Safari, Opera */
+
+@-webkit-keyframes risk_rating_animation {
+    from {
+        border: solid black 1px;
+        font-weight: normal;
+    }
+    to {
+        border: solid white 1px;
+        font-weight: bold;
+    }
+}
+
+
+/* FireFox */
+
+@-moz-keyframes risk_rating_animation {
+    from {
+        border: solid black 1px;
+        font-weight: normal;
+    }
+    to {
+        border: solid white 1px;
+        font-weight: bold;
+    }
+}
+
+
+/* Opera */
+
+
+/*@-o-keyframes risk_rating_animation {
+    from {border: solid black 1px;
+        font-weight: normal;}
+    to {border: solid white 1px;
+        font-weight: bold;}
+}*/
+
+
+/* Standard syntax */
+
+@keyframes risk_rating_animation {
+    from {
+        border: solid black 1px;
+        font-weight: normal;
+    }
+    to {
+        border: solid white 1px;
+        font-weight: bold;
+    }
+}
+
+div.flash_background {
+    /*width: 100px;
+    height: 100px;
+    position: relative;
+    background-color: red;
+    border: solid black 2px;*/
+    animation-name: risk_rating_animation;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}

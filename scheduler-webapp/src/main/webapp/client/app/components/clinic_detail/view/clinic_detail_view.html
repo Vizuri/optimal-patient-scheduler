@@ -1,0 +1,98 @@
+
+<div data-ng-include="'client/app/assets/templates/web_templates.html'"></div>
+<div class="container custom_look">
+    <div init-header="clinic" header-label="Clinic Schedule"></div>
+    <form name="mainForm" class="body form-horizontal custom-form">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+
+                <div layout="row">
+                    <label flex class="control-label">Select a Clinic to view:</label>
+                    <div flex="30">
+                        <select name="clinics" id="clinics" ng-model="selectedClinic.name"
+                                ng-options="c.name as c.name for c in clinics" data-ng-change="selectClinic()" class="form-control">
+                            <option value="">Select one</option>
+                        </select>
+                    </div>
+                    <!--<div flex="15">-->
+                        <!--<button class="btn btn-primary btn-sm" ng-disabled="!clinics" ng-click="refreshAllClinics()">Refresh</button>-->
+                    <!--</div>-->
+
+                </div>
+            </div>
+            <div class="panel-body">
+                <div layout="row" ng-show="selectedClinic.obj">
+
+                    <md-content flex="100">
+                        <md-tabs md-selected="clinicTabs.active" md-dynamic-height md-border-bottom>
+                            <md-tab label="Details">
+                                <md-content class="md-padding">
+                                    <div layout="row">
+
+                                        <div flex="15">
+                                            <label class="control-label">Clinic Name:</label>
+                                        </div>
+                                        <div flex="10" class="readonly_value">
+                                            {{selectedClinic.obj.name}}
+                                        </div>
+                                        <div flex="15" flex-offset="5">
+                                            <label class="control-label">Available Rooms:</label>
+                                        </div>
+                                        <div flex="20">
+                                            <ul>
+                                                <li ng-repeat="room in selectedClinic.obj.rooms" >
+                                                    {{room.name}}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+
+                                        <div flex="15">
+                                            <label class="control-label">Number of Patients:</label>
+                                        </div>
+                                        <div flex="10" class="readonly_value">
+                                            {{selectedClinic.obj.patients.length}}
+                                        </div>
+
+                                    </div>
+                                    <div layout="row">
+
+                                        <div flex="15">
+                                            <label class="control-label">Number of Treatments:</label>
+                                        </div>
+                                        <div flex="10" class="readonly_value">
+                                            {{selectedClinic.obj.totalTreatments}}
+                                        </div>
+
+                                    </div>
+                                    <hr>
+                                    <div layout="row">
+                                        <div flex="15">
+                                            <button type="button" ng-click="showPatientsForClinic()"
+                                                    tooltip-placement="top" uib-tooltip="Will get all patient for this clinic"
+                                                    class="btn btn-success btn-sm">Show Patients</button>
+                                        </div>
+                                        <!--<div flex="15">-->
+                                        <!--<button class="btn btn-primary btn-sm" ng-click="resetConfiguration()">Reset Configuration</button>-->
+                                        <!--</div>-->
+                                    </div>
+
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="Schedule" ng-click="refreshCalendar()">
+                                <md-content class="md-padding">
+                                    <div class="calendar" id="calendar" calendar="clinicSchedule" ui-calendar="uiConfig.calendar" ng-model="eventSources"></div>
+                                </md-content>
+                            </md-tab>
+
+                        </md-tabs>
+                    </md-content>
+
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>

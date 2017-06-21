@@ -1,0 +1,169 @@
+package com.vizuri.patient.scheduler;
+
+dialect "java"
+
+import com.vizuri.patient.scheduler.solver.ConsultationEncounter;
+import com.vizuri.patient.scheduler.solver.TreatmentEncounter;
+import com.vizuri.patient.scheduler.solver.Encounter;
+import com.vizuri.patient.scheduler.model.Day;
+import com.vizuri.patient.scheduler.model.TimeGrain;
+import com.vizuri.patient.scheduler.model.Appointment;
+import com.vizuri.patient.scheduler.model.AppointmentStatus;
+import com.vizuri.patient.scheduler.model.Shift;
+
+import com.vizuri.patient.scheduler.util.DataFactory;
+
+import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScoreHolder;
+
+import java.util.Set;
+import java.util.HashSet;
+
+
+global HardMediumSoftScoreHolder scoreHolder;
+
+// ############################################################################
+// Hard constraints
+// ############################################################################
+rule "Room Appointment Conflict: overlapping consulting encounters must not use the same consulting room"
+	when
+        $left : ConsultationEncounter(consultingRoom != null, $leftId : id, $consultingRoom : consultingRoom)
+        $right : ConsultationEncounter(id > $leftId, consultingRoom == $consultingRoom, calculateOverlap($left) > 0)
+	then
+        scoreHolder.addHardConstraintMatch(kcontext, - $right.calculateOverlap($left));
+end
+
+rule "Physician Schedule Conflict: physician must only have consults in one clinic a day"
+	when
+		$left : ConsultationEncounter(startingTime != null, physician != null)
+		$right : ConsultationEncounter(id > $left.id, startingTime != null, physician != null, startingTime.day == $left.startingTime.day, appointment.clinic != $left.appointment.clinic)
+	then
+		scoreHolder.addHardConstraintMatch(kcontext, -1);
+end
+
+rule "Physician Appointment Conflict: overlapping consultations must not include the same physician"
+    when
+        $left : ConsultationEncounter($leftId : id, $physician : physician, startingTime != null)
+        $right : ConsultationEncounter(id > $leftId, physician == $physician, calculateOverlap($left) > 0)
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, - $right.calculateOverlap($left));
+end
+
+rule "Patient Encounter Conflict: overlapping encounter (of any kind) must not include the same patient"
+    when
+        $left : Encounter($leftId : id, $patient : appointment.patient, startingTime != null)
+        $right : Encounter(id > $leftId, appointment.patient == $patient, calculateOverlap($left) > 0)
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, - $right.calculateOverlap($left));
+end
+
+// Following rule is covered after making Encounter hierarchy
+/*rule "Patient Treatment Conflict: appointments overlapping treatments must not include the same patient"
+	when
+		$consult : ConsultationEncounter($patient : appointment.patient, startingTime != null)
+		$treatment : TreatmentEncounter(appointment.patient == $patient, calculateOverlap($consult) > 0)
+	then
+		scoreHolder.addHardConstraintMatch(kcontext, - $treatment.calculateOverlap($consult));
+end*/
+
+rule "Operating Hours Constraint: Appointment must be fully contained within operating hours"
+    when
+        ConsultationEncounter(startingTime != null, $lastTimeIndex : getLastTimeIndex())
+        not TimeGrain(grainIndex == $lastTimeIndex)
+    then
+        scoreHolder.addHardConstraintMatch(kcontext, - $lastTimeIndex);
+end
+
+/*rule "Make all proposed encounters in the future"
+	when
+		$schedulingDay : Day ( )
+		ConsultationEncounter( startingTime != null, status == AppointmentStatus.DRAFT, startingTime.day.after( $schedulingDay ) )
+	then
+		scoreHolder.addHardConstraintMatch(kcontext, -1 );
+end*/
+
+// We have this rule because we have allowed a feasible solution to include no physician assigned 
+// (Over constrained approach: there may be not enough physicians to cover all the appointments) 
+rule "Physician scheduling: Penalty for no physician scheduled"
+	when
+		ConsultationEncounter( physician == null )
+	then
+		scoreHolder.addHardConstraintMatch(kcontext, -1);
+end
+
+// ############################################################################
+// Medium constraints
+// ############################################################################
+
+rule "Patient Convenience: Consultation appointments should occur on a day that the patient has a treatment"
+	when
+		ConsultationEncounter(startingTime != null, $patient : appointment.patient, $day : startingTime.day )
+		not TreatmentEncounter(appointment.patient == $patient, startingTime.day == $day)
+	then
+		scoreHolder.addMediumConstraintMatch(kcontext, -1);
+end
+
+rule "Patient Convenience: Patient consultations should occur within 1 hour of a treatment"
+    when
+        $consult : ConsultationEncounter(startingTime != null)
+        $treatment : TreatmentEncounter(appointment.patient == $consult.appointment.patient, startingTime.day == $consult.startingTime.day, calculateGapGrains( $consult ) >= 5)
+    then
+        scoreHolder.addMediumConstraintMatch(kcontext, - ( $treatment.calculateGapGrains( $consult ) ));
+end
+
+rule "Physician Scheduling: Physicians should only work 2 shifts per week"
+	dialect "mvel"
+	when
+		$left : ConsultationEncounter( physician != null )
+		not ConsultationEncounter ( startingTime != null, physician == $left.physician, id < $left.id, startingTime.day.weekOfYear == $left.startingTime.day.weekOfYear) 
+		$set : Set( size > 1 )
+			from accumulate ( ConsultationEncounter ( 
+							startingTime != null, 
+							physician == $left.physician, 
+							startingTime.day.weekOfYear == $left.startingTime.day.weekOfYear,
+							startingTime.day != $left.startingTime.day,
+							$day : startingTime.day),
+				init ( Set s = new HashSet(); ),
+				action ( s.add( $day.dayOfYear ) ),
+				result ( s ) 
+			)
+	then
+		scoreHolder.addMediumConstraintMatch(kcontext, - ($set.size() - 1));
+end
+
+// ############################################################################
+// Soft constraints
+// ############################################################################
+rule "Shift efficiency: Scheduling should favor the same physician covering a particular room for a particular day"
+	dialect "mvel"
+	when
+		$left : ConsultationEncounter ( startingTime != null, physician != null, consultingRoom != null )
+		not ConsultationEncounter ( id < $left.id, startingTime.day == $left.startingTime.day, consultingRoom == $left.consultingRoom) 
+		$set : Set( )
+			from accumulate ( ConsultationEncounter ( 
+							startingTime != null, 
+							startingTime.day == $left.startingTime.day,
+							consultingRoom == $left.consultingRoom,
+							physician != null,
+							physician != $left.physician,
+							$physician : physician),
+				init ( Set s = new HashSet(); ),
+				action ( s.add( $physician.id ) ),
+				result ( s ) 
+			)
+		//$rightEncounter : ConsultationEncounter ( id > $leftEncounter.id, startingTime.day == $leftEncounter.startingTime.day, consultingRoom == $leftEncounter.consultingRoom, physician != $leftEncounter.physician )
+	then
+		scoreHolder.addSoftConstraintMatch( kcontext, - (100 * $set.size()));
+end
+
+// The magic number 5 corresponds to the number of grains (15 minute each) that represents more than one hour when calculating the gap between two times
+rule "Patient Convenience: Consults should be scheduled as close to a treatment as possible"
+    when
+    	$schedulingDay : Day ( )
+        $consult : ConsultationEncounter(startingTime != null)
+        $treatment : TreatmentEncounter(appointment.patient == $consult.appointment.patient, startingTime.day == $consult.startingTime.day, calculateGapGrains( $consult ) < 5)
+    then
+    	int dayGap = $treatment.getStartingTime().getDay().getDayOfYear() - $schedulingDay.getDayOfYear();
+    	int timeGap = $treatment.calculateGapGrains($consult);
+        scoreHolder.addSoftConstraintMatch(kcontext, - ((dayGap * dayGap * 100) + (timeGap * timeGap * 10)));
+end
+
